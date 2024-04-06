@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Home Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+      div a {
+        text-decoration: none;
+        color: #fff;
+      }
+      .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .navbar li {
+        margin-right: 20px;
+      }
+
+      .menu-btn {
+        display: none;
+        cursor: pointer;
+      }
+
+      .content {
+        padding: 20px;
+        text-align: center;
+      }
+      h1 {
+        text-align: center;
+        font-family: sans-serif;
+      }
+
+      .footer {
+        width: 100%;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+      }
+
+      @media only screen and (max-width: 768px) {
+        .navbar ul {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          background-color: #444;
+          width: 100%;
+          padding: 10px;
+        }
+
+        .navbar ul.show {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .navbar li {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+
+        .menu-btn {
+          display: block;
+        }
+      }
+
+      /* main content */
+      label,
+      input,
+      span {
+        display: block;
+        margin-bottom: 10px;
+      }
+      /* div {
+            margin-top: 20px;
+        } */
+      #result p {
+        margin: 5px 0; /* Adjust margin for result paragraphs */
+      }
+      @media (max-width: 600px) {
+        body {
+          font-size: 14px; /* Reduce font size for smaller screens */
+        }
+      }
+      input[type="number"],
+      input[type="submit"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <a href="#">JS</a>
+      </div>
+      <div class="menu-btn">&#9776;</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="project1.html">Project-1</a></li>
+        <li><a href="project2.html">project-2</a></li>
+        <li><a href="Project3.html">Project-3</a></li>
+        <li><a href="Project4.html">Project-4</a></li>
+      </ul>
+    </div>
+
+    <div class="content" id="mainContent">
+      <h1>BMI</h1>
+      <form>
+        <label for="height">Height (meters)</label>
+        <input type="number" step="0.01" name="height" id="height" />
+        <label for="weight">Weight (kg)</label>
+        <input type="number" step="0.1" name="weight" id="weight" />
+        <input type="submit" value="Calculate BMI" />
+      </form>
+      <div id="result"></div>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2024 Your Codeinspirehub04. All rights reserved.</p>
+    </div>
+
+    <script>
+      const menuBtn = document.querySelector(".menu-btn");
+      const navbarUl = document.querySelector(".navbar ul");
+
+      menuBtn.addEventListener("click", () => {
+        navbarUl.classList.toggle("show");
+      });
+
+      const form = document.querySelector("form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const height = parseFloat(document.getElementById("height").value);
+        const weight = parseFloat(document.getElementById("weight").value);
+        const bmi = (weight / (height * height)).toFixed(2);
+        const result = document.getElementById("result");
+        result.innerHTML = `<p>Your BMI is: ${bmi}</p>`;
+
+        if (bmi < 18.5) {
+          result.innerHTML += `<p style="color: #FF6347;">Underweight</p>`;
+        } else if (bmi >= 18.5 && bmi < 25) {
+          result.innerHTML += `<p style="color: #32CD32;">Normal weight</p>`;
+        } else if (bmi >= 25 && bmi < 30) {
+          result.innerHTML += `<p style="color: #FFD700;">Overweight</p>`;
+        } else {
+          result.innerHTML += `<p style="color: #FF4500;">Obese</p>`;
+        }
+      });
+    </script>
+  </body>
+</html>

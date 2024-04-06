@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Home Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+      div a {
+        text-decoration: none;
+        color: #fff;
+      }
+      .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .navbar li {
+        margin-right: 20px;
+      }
+
+      .menu-btn {
+        display: none;
+        cursor: pointer;
+      }
+
+      .content {
+        padding: 20px;
+        text-align: center;
+      }
+      h1 {
+        text-align: center;
+        font-family: sans-serif;
+      }
+
+      .footer {
+        width: 100%;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+      }
+
+      @media only screen and (max-width: 768px) {
+        .navbar ul {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          background-color: #444;
+          width: 100%;
+          padding: 10px;
+        }
+
+        .navbar ul.show {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .navbar li {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+
+        .menu-btn {
+          display: block;
+        }
+      }
+
+      /* main  */
+
+      form {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column; /* Adjusted to make input and button stacked */
+        align-items: center; /* Center align the items horizontally */
+      }
+
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"] {
+        width: 100%; /* Full width */
+        box-sizing: border-box; /* Ensure padding is included in the width */
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px; /* Add some space between input and button */
+      }
+
+      button {
+        width: 100%; /* Full width */
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #resultdiv {
+        margin-top: 20px;
+      }
+
+      #prevGuesses {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      #remainingChances {
+        font-size: 18px;
+      }
+
+      #lowOrHigh {
+        font-size: 18px;
+        margin-top: 10px;
+      }
+
+      /* Additional styles for responsiveness */
+      @media only screen and (max-width: 600px) {
+        input[type="number"] {
+          width: 100%;
+          box-sizing: border-box; /* Ensure padding is included in the width */
+          margin-bottom: 10px; /* Add some space between input and button */
+        }
+
+        button {
+          width: 100%;
+          margin-left: 0; /* Remove left margin on button */
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <a href="#">JS</a>
+      </div>
+      <div class="menu-btn">&#9776;</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="project1.html">Project-1</a></li>
+        <li><a href="project2.html">Project-2</a></li>
+        <li><a href="Project3.html">Project-3</a></li>
+        <li><a href="Project4.html">Project-4</a></li>
+      </ul>
+    </div>
+
+    <div class="content" id="mainContent">
+      <form>
+        <input type="number" id="user" placeholder="Enter number" />
+        <button type="submit" id="submit">Submit</button>
+      </form>
+
+      <div id="resultdiv">
+        <div id="prevGuesses">Previous Guess: <span id="prev"></span></div>
+        <div id="remainingChances">
+          Remaining chance: <span id="remaning"></span>
+        </div>
+        <div id="lowOrHigh"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2024 Your Codeinspirehub04. All rights reserved.</p>
+    </div>
+
+    <script>
+      const menuBtn = document.querySelector(".menu-btn");
+      const navbarUl = document.querySelector(".navbar ul");
+
+      menuBtn.addEventListener("click", () => {
+        navbarUl.classList.toggle("show");
+      });
+
+      let randomNumber = Math.floor(Math.random() * 100) + 1;
+
+      const submitButton = document.querySelector("#submit");
+      const userInput = document.querySelector("#user");
+      const resultdiv = document.querySelector("#resultdiv");
+      const prev = document.querySelector("#prev");
+      const remaning = document.querySelector("#remaning");
+      const lowOrHigh = document.querySelector("#lowOrHigh"); // Corrected id here
+      const p = document.createElement("p");
+
+      let prevGuess = [];
+      let remainingGuess = 0;
+      let playStart = true;
+
+      if (playStart) {
+        submitButton.addEventListener("click", function (e) {
+          e.preventDefault();
+          const inputValue = parseInt(userInput.value);
+          validation(inputValue);
+        });
+      }
+
+      function validation(inputValue) {
+        if (isNaN(inputValue)) {
+          lowOrHigh.style.color = "red"; // Corrected id here
+          lowOrHigh.textContent = "Please enter a valid number"; // Corrected id here
+        } else if (inputValue < 1 || inputValue > 100) {
+          lowOrHigh.style.color = "red"; // Corrected id here
+          lowOrHigh.textContent = "Please enter a number between 1 and 100"; // Corrected id here
+        } else {
+          prevGuess.push(inputValue);
+          if (remainingGuess === 9) {
+            displayGuess(inputValue);
+            displayMessage(`Game over! Random number was ${randomNumber}`);
+            endGame();
+          } else {
+            displayGuess(inputValue);
+            checkGuess(inputValue);
+          }
+        }
+      }
+
+      function checkGuess(inputValue) {
+        if (inputValue === randomNumber) {
+          displayMessage(
+            `You Guessed right! Your guess: ${inputValue}, Random Number: ${randomNumber}`
+          );
+          endGame();
+        } else if (inputValue < randomNumber) {
+          displayMessage("Number is too low");
+        } else if (inputValue > randomNumber) {
+          displayMessage("Number is too high");
+        }
+      }
+
+      function displayGuess(inputValue) {
+        userInput.value = "";
+        prev.innerHTML += `${inputValue}, `;
+        remainingGuess++;
+        remaning.innerHTML = `${10 - remainingGuess}`;
+      }
+
+      function displayMessage(message) {
+        lowOrHigh.style.color = "blue"; // Corrected id here
+        lowOrHigh.textContent = message; // Corrected id here
+      }
+
+      function endGame() {
+        userInput.value = "";
+        userInput.setAttribute("disabled", "");
+        p.classList.add("button");
+        p.innerHTML = `<h3 id="newGame">Start New Game</h3>`;
+        p.style.cursor = "pointer";
+        resultdiv.appendChild(p);
+        playStart = false;
+        startGame();
+      }
+
+      function startGame() {
+        const newButton = document.querySelector("#newGame");
+        newButton.addEventListener("click", () => {
+          randomNumber = Math.floor(Math.random() * 100) + 1;
+          prevGuess = [];
+          remainingGuess = 0;
+          prev.innerHTML = "";
+          remaning.innerHTML = `${10 - remainingGuess}`;
+          userInput.removeAttribute("disabled");
+          resultdiv.removeChild(p);
+          lowOrHigh.textContent = "";
+          playStart = true;
+        });
+      }
+    </script>
+  </body>
+</html>

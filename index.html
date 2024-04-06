@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Home Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+      }
+
+      .navbar {
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        position: sticky;
+        top: 0;
+      }
+
+      div a {
+        text-decoration: none;
+        color: #fff;
+      }
+
+      .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .navbar li {
+        margin-right: 20px;
+      }
+
+      .menu-btn {
+        display: none;
+        cursor: pointer;
+      }
+
+      .content {
+        padding: 20px;
+        text-align: justify;
+        line-height: 1.6;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+      }
+
+      h1 {
+        text-align: center;
+        font-family: sans-serif;
+      }
+
+      .footer {
+        width: 100%;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+      }
+
+      @media only screen and (max-width: 768px) {
+        .navbar ul {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 40px;
+          left: 0;
+          background-color: #444;
+          width: 100%;
+          padding: 10px;
+        }
+
+        .navbar ul.show {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .navbar li {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+
+        .menu-btn {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <a href="#">JS</a>
+      </div>
+      <div class="menu-btn">&#9776;</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="project1.html">Project-1</a></li>
+        <li><a href="project2.html">Project-2</a></li>
+        <li><a href="Project3.html">Project-3</a></li>
+        <li><a href="Project4.html">Project-4</a></li>
+      </ul>
+    </div>
+
+    <div class="content" id="mainContent">
+      <h1>Welcome to Our Javascript-Projects</h1>
+      <p>
+        1. Background Color Changer: This project allows users to change the
+        background color of a webpage dynamically. It's a fun and interactive
+        way to explore how JavaScript can modify the visual aspects of a website
+        in real-time.
+      </p>
+      <p>
+        2. BMI Calculator: The BMI (Body Mass Index) Calculator calculates the
+        BMI based on the user's input of weight and height. It provides a quick
+        way to estimate a person's body composition and categorize them into
+        weight classification categories like underweight, normal weight,
+        overweight, or obese.
+      </p>
+      <p>
+        3. Digital Clock: The Digital Clock project displays the current time in
+        a digital format on a webpage. It updates in real-time, showing hours,
+        minutes, and seconds, providing a simple yet practical example of using
+        JavaScript to create dynamic content.
+      </p>
+      <p>
+        4. Number Guessing Game: The Number Guessing Game challenges users to
+        guess a random number within a specified range. It provides feedback on
+        whether the guessed number is too high, too low, or correct, making it
+        an engaging and interactive way to test one's guessing skills.
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2024 Your Codeinspirehub04. All rights reserved.</p>
+    </div>
+
+    <script>
+      const menuBtn = document.querySelector(".menu-btn");
+      const navbarUl = document.querySelector(".navbar ul");
+
+      menuBtn.addEventListener("click", () => {
+        navbarUl.classList.toggle("show");
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Home Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+      div a {
+        text-decoration: none;
+        color: #fff;
+      }
+      .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .navbar li {
+        margin-right: 20px;
+      }
+
+      .menu-btn {
+        display: none;
+        cursor: pointer;
+      }
+
+      .content {
+        padding: 20px;
+        text-align: center;
+      }
+      h1 {
+        text-align: center;
+      }
+
+      .footer {
+        width: 100%;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+      }
+
+      @media only screen and (max-width: 768px) {
+        .navbar ul {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          background-color: #444;
+          width: 100%;
+          padding: 10px;
+        }
+
+        .navbar ul.show {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .navbar li {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+
+        .menu-btn {
+          display: block;
+        }
+      }
+
+      /* main content */
+      h1 {
+        text-align: center;
+      }
+      .conatiner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+      .button {
+        width: 100px;
+        height: 100px;
+        border: 2px solid black;
+      }
+      #grey {
+        background-color: gray;
+      }
+      #white {
+        background-color: white;
+      }
+      #yellow {
+        background-color: yellow;
+      }
+      #blue {
+        background-color: blue;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <a href="#">JS</a>
+      </div>
+      <div class="menu-btn">&#9776;</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="project1.html" id="p1">Project-1</a></li>
+        <li><a href="project2.html">Project-2</a></li>
+        <li><a href="Project3.html">Project-3</a></li>
+        <li><a href="Project4.html">Project-4</a></li>
+      </ul>
+    </div>
+
+    <div class="content" id="mainContent">
+      <h1>BackGround Color Changer</h1>
+      <div class="conatiner">
+        <div class="button" id="grey"></div>
+        <div class="button" id="white"></div>
+        <div class="button" id="yellow"></div>
+        <div class="button" id="blue"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2024 Your Codeinspirehub04. All rights reserved.</p>
+    </div>
+
+    <script>
+      const menuBtn = document.querySelector(".menu-btn");
+      const navbarUl = document.querySelector(".navbar ul");
+
+      menuBtn.addEventListener("click", () => {
+        navbarUl.classList.toggle("show");
+      });
+
+      const btn = document.querySelectorAll(".button");
+      const body = document.querySelector("body");
+      btn.forEach((item) => {
+        item.addEventListener("click", (e) => {
+          body.style.backgroundColor = e.target.id;
+        });
+      });
+    </script>
+  </body>
+</html>
