@@ -155,6 +155,53 @@
           margin-left: 0; /* Remove left margin on button */
         }
       }
+      #container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      flex-direction: column;
+    }
+
+    #title {
+      text-align: center;
+      margin-bottom: 20px;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    @media screen and (max-width: 768px) {
+      #container {
+        flex-direction: column;
+      }
+
+      .btn {
+        margin-bottom: 10px;
+      }
+    }
     </style>
   </head>
 
@@ -175,19 +222,13 @@
     </div>
 
     <div class="content" id="mainContent">
-        <h1>Number Guessing Game</h1>
-      <form>
-        <input type="number" id="user" placeholder="Enter number" />
-        <button type="submit" id="submit">Submit</button>
-      </form>
-
-      <div id="resultdiv">
-        <div id="prevGuesses">Previous Guess: <span id="prev"></span></div>
-        <div id="remainingChances">
-          Remaining chance: <span id="remaning"></span>
-        </div>
-        <div id="lowOrHigh"></div>
-      </div>
+        <div id="container">
+            <h1 id="title">BackgroundColor Changer</h1>
+            <div class="btn-container">
+              <button class="btn" id="start">Start</button>
+              <button class="btn" id="stop">Stop</button>
+            </div>
+          </div>
     </div>
 
     <div class="footer">
@@ -195,105 +236,23 @@
     </div>
 
     <script>
-      const menuBtn = document.querySelector(".menu-btn");
-      const navbarUl = document.querySelector(".navbar ul");
-
-      menuBtn.addEventListener("click", () => {
-        navbarUl.classList.toggle("show");
-      });
-
-      let randomNumber = Math.floor(Math.random() * 100) + 1;
-
-      const submitButton = document.querySelector("#submit");
-      const userInput = document.querySelector("#user");
-      const resultdiv = document.querySelector("#resultdiv");
-      const prev = document.querySelector("#prev");
-      const remaning = document.querySelector("#remaning");
-      const lowOrHigh = document.querySelector("#lowOrHigh"); // Corrected id here
-      const p = document.createElement("p");
-
-      let prevGuess = [];
-      let remainingGuess = 0;
-      let playStart = true;
-
-      if (playStart) {
-        submitButton.addEventListener("click", function (e) {
-          e.preventDefault();
-          const inputValue = parseInt(userInput.value);
-          validation(inputValue);
-        });
-      }
-
-      function validation(inputValue) {
-        if (isNaN(inputValue)) {
-          lowOrHigh.style.color = "red"; // Corrected id here
-          lowOrHigh.textContent = "Please enter a valid number"; // Corrected id here
-        } else if (inputValue < 1 || inputValue > 100) {
-          lowOrHigh.style.color = "red"; // Corrected id here
-          lowOrHigh.textContent = "Please enter a number between 1 and 100"; // Corrected id here
-        } else {
-          prevGuess.push(inputValue);
-          if (remainingGuess === 9) {
-            displayGuess(inputValue);
-            displayMessage(`Game over! Random number was ${randomNumber}`);
-            endGame();
-          } else {
-            displayGuess(inputValue);
-            checkGuess(inputValue);
+        function randoms(number) {
+          return Math.floor(Math.random() * (number + 1));
+        }
+        let stp;
+        const start = () => {
+          if (!stp) {
+            stp = setInterval(() => {
+              document.body.style.backgroundColor = `rgb(${randoms(255)},${randoms(255)},${randoms(255)})`;
+            }, 2000);
           }
-        }
-      }
-
-      function checkGuess(inputValue) {
-        if (inputValue === randomNumber) {
-          displayMessage(
-            `You Guessed right! Your guess: ${inputValue}, Random Number: ${randomNumber}`
-          );
-          endGame();
-        } else if (inputValue < randomNumber) {
-          displayMessage("Number is too low");
-        } else if (inputValue > randomNumber) {
-          displayMessage("Number is too high");
-        }
-      }
-
-      function displayGuess(inputValue) {
-        userInput.value = "";
-        prev.innerHTML += `${inputValue}, `;
-        remainingGuess++;
-        remaning.innerHTML = `${10 - remainingGuess}`;
-      }
-
-      function displayMessage(message) {
-        lowOrHigh.style.color = "blue"; // Corrected id here
-        lowOrHigh.textContent = message; // Corrected id here
-      }
-
-      function endGame() {
-        userInput.value = "";
-        userInput.setAttribute("disabled", "");
-        p.classList.add("button");
-        p.innerHTML = `<h3 id="newGame">Start New Game</h3>`;
-        p.style.cursor = "pointer";
-        resultdiv.appendChild(p);
-        playStart = false;
-        startGame();
-      }
-
-      function startGame() {
-        const newButton = document.querySelector("#newGame");
-        newButton.addEventListener("click", () => {
-          randomNumber = Math.floor(Math.random() * 100) + 1;
-          prevGuess = [];
-          remainingGuess = 0;
-          prev.innerHTML = "";
-          remaning.innerHTML = `${10 - remainingGuess}`;
-          userInput.removeAttribute("disabled");
-          resultdiv.removeChild(p);
-          lowOrHigh.textContent = "";
-          playStart = true;
-        });
-      }
-    </script>
+        };
+        const stop = () => {
+          clearInterval(stp);
+          stp = null;
+        };
+        document.querySelector("#start").addEventListener("click", start);
+        document.querySelector("#stop").addEventListener("click", stop);
+      </script>
   </body>
 </html>
