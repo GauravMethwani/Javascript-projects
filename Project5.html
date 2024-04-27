@@ -88,8 +88,59 @@
 
       /* main  */
 
-   
+      form {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column; /* Adjusted to make input and button stacked */
+        align-items: center; /* Center align the items horizontally */
+      }
 
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"] {
+        width: 100%; /* Full width */
+        box-sizing: border-box; /* Ensure padding is included in the width */
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px; /* Add some space between input and button */
+      }
+
+      button {
+        width: 100%; /* Full width */
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #resultdiv {
+        margin-top: 20px;
+      }
+
+      #prevGuesses {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      #remainingChances {
+        font-size: 18px;
+      }
+
+      #lowOrHigh {
+        font-size: 18px;
+        margin-top: 10px;
+      }
 
       /* Additional styles for responsiveness */
       @media only screen and (max-width: 600px) {
@@ -108,7 +159,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 50vh;
       margin: 0;
       flex-direction: column;
     }
@@ -165,10 +215,11 @@
         <li><a href="project2.html">Project-2</a></li>
         <li><a href="Project3.html">Project-3</a></li>
         <li><a href="Project4.html">Project-4</a></li>
-        <li><a href="Project5.html">Project-5</a></li>
+         <li><a href="Project5.html">Project-5</a></li>
       </ul>
     </div>
 
+    <div class="content" id="mainContent">
         <div id="container">
             <h1 id="title">BackgroundColor Changer</h1>
             <div class="btn-container">
@@ -176,7 +227,7 @@
               <button class="btn" id="stop">Stop</button>
             </div>
           </div>
-    
+    </div>
 
     <div class="footer">
       <p>&copy; 2024 Your Codeinspirehub04. All rights reserved.</p>
