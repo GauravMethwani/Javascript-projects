@@ -185,6 +185,12 @@
         };
         document.querySelector("#start").addEventListener("click", start);
         document.querySelector("#stop").addEventListener("click", stop);
+        const menuBtn = document.querySelector(".menu-btn");
+      const navbarUl = document.querySelector(".navbar ul");
+
+      menuBtn.addEventListener("click", () => {
+        navbarUl.classList.toggle("show");
+      });
       </script>
   </body>
 </html>
